@@ -23,7 +23,7 @@ const client = new Client({ partials: ['MESSAGE', 'REACTION']});
 client.commands = new Collection();
 client.code = new Map();
 client.stars = new Map();
-client.login(process.env.TOKEN);
+client.login("NTk5Mjc5NzgxMTgzMjI1ODkw.Xu-CkA.q1cj3KH6a6B7WxGDZSTQf16jAGU");
 
 fs.readdir(__dirname + "/commands", (err, files) => {
     if (err) console.error(err);
@@ -231,7 +231,7 @@ client.on('messageReactionRemove', async (reaction, user) => {
 
 client.on("message", (message) => {
   if (message.author.bot) return;
-  if (!message.content.startsWith(process.env.PREFIX)) return;
+  if (!message.content.startsWith(".tg")) return;
   if (message.channel.type === "dm") return;
   
   let messageArray = message.content.split(" ");
