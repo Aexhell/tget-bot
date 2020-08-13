@@ -16,7 +16,8 @@
     "http": "^0.0.0",
     "path": "^0.12.7",
     "text2png": "^2.2.0",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "http": "*"
   },
   "engines": {
     "node": "10.x"
