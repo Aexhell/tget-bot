@@ -11,10 +11,10 @@ const path = require("path");
 const text2png = require('text2png');
  
 app.use(keepalive);
-app.get("/revive", (req, res) => {
+app.get("/", (req, res) => {
   res.json("I need to live!");
 });
-app.get("/revive", (request, response) => {
+app.get("/", (request, response) => {
   response.sendStatus(200);
 });
 app.listen(process.env.PORT);
