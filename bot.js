@@ -19,7 +19,7 @@ app.get("/", (request, response) => {
 });
 app.listen(process.env.PORT);
 
-var http = require('http'); //importing http
+const http = require('http'); //importing http
 
 function startKeepAlive() {
     setInterval(function() {
