@@ -1,0 +1,30 @@
+{
+  "name": "exuberant",
+  "version": "0.0.1",
+  "description": "A simple Node app built on Express, instantly up and running.",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "discord.js": "^11.6.4",
+    "express-glitch-keepalive": "^0.2.0",
+    "fs": "^0.0.2",
+    "quick.db": "^7.1.1",
+    "date-time": "^3.1.0",
+    "http": "^0.0.0",
+    "path": "^0.12.7",
+    "text2png": "^2.2.0",
+    "dotenv": "^8.2.0"
+  },
+  "engines": {
+    "node": "10.x"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}
