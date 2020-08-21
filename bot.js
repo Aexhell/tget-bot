@@ -49,7 +49,7 @@ const client = new Client({ partials: ['MESSAGE', 'REACTION']});
 client.commands = new Collection();
 client.code = new Map();
 client.stars = new Map();
-client.login("NTk5Mjc5NzgxMTgzMjI1ODkw.Xu-CkA.q1cj3KH6a6B7WxGDZSTQf16jAGU");
+client.login(process.env.TOKEN);
 
 fs.readdir(__dirname + "/commands", (err, files) => {
     if (err) console.error(err);
