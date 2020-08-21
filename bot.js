@@ -6,7 +6,6 @@ const keepalive = require('express-glitch-keepalive');
 const fs = require("fs");
 const db = require("quick.db");
 const dateTime = require('date-time');
-const http = require("http");
 const path = require("path");
 const text2png = require('text2png');
  
