@@ -23,7 +23,7 @@ const http = require('http'); //importing http
 function startKeepAlive() {
     setInterval(function() {
         var options = {
-            host: 'waterfall-bot.herokuapp.com',
+            host: 'tget-bot.herokuapp.com',
             port: 80,
             path: '/'
         };
