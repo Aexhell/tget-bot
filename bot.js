@@ -6,43 +6,16 @@ const keepalive = require('express-glitch-keepalive');
 const fs = require("fs");
 const db = require("quick.db");
 const dateTime = require('date-time');
-const path = require("path");
 const text2png = require('text2png');
  
-app.use(keepalive);
-app.get("/", (req, res) => {
-  res.json("I need to live!");
-});
+app.use(express.static("public"));
 app.get("/", (request, response) => {
+  response.json("I live!");
+});
+app.get("/", (req, res) => {
   response.sendStatus(200);
 });
-app.listen(process.env.PORT);
-
-const http = require('http'); //importing http
-
-function startKeepAlive() {
-    setInterval(function() {
-        var options = {
-            host: 'tget-bot.herokuapp.com',
-            port: 80,
-            path: '/'
-        };
-        http.get(options, function(res) {
-            res.on('data', function(chunk) {
-                try {
-                    // optional logging... disable after it's working
-                    console.log("HEROKU RESPONSE: " + chunk);
-                } catch (err) {
-                    console.log(err.message);
-                }
-            });
-        }).on('error', function(err) {
-            console.log("Error: " + err.message);
-        });
-    }, 20 * 60 * 1000); // load every 20 minutes
-}
-
-startKeepAlive();
+app.listen(process.env.PORT || 5000)
 
 const client = new Client({ partials: ['MESSAGE', 'REACTION']});
 client.commands = new Collection();
@@ -67,7 +40,7 @@ fs.readdir(__dirname + "/commands", (err, files) => {
     });
 });
 
-let statuses = [`rel. ver. 0.0.2`, `TGet!`];
+let statuses = [`rel. ver. 0.0.3`, `TGet!`];
 let status = statuses[Math.floor(Math.random() * statuses.length)];
 
 function starboarding(message, user, channel) {
@@ -123,7 +96,7 @@ client.on("guildMemberAdd", async (member, guild) => {
   
   const attachment = new Attachment(image);
   
-  member.addRole(role, "TheTGetVerification v2.0. El usuario necesita verificarse manualmente.");
+  member.addRole(role, "TheTGetVerification v3.0. El usuario necesita verificarse manualmente.");
   channel.send(`¡Bienvenido al servidor de **TGet**, ${member}!\nEsta medida de seguridad funciona como un método de precaución en contra de los raids y los intentos de molestar a los usuarios.\n\nPara poder acceder al servidor, debes introducir este código en los próximos 15 minutos, o este expirará. Recuerda que este código SOLO puede ser utilizado por ti:`, attachment)
   
   const filter = m => m.content;
@@ -132,13 +105,13 @@ client.on("guildMemberAdd", async (member, guild) => {
   let timeout = setTimeout(function() {
     if (!code) return;
     if (collector.done === true) {
-      channel.fetchMessages({ limit: 100 }).then(messages => channel.bulkDelete(messages));
+      channel.fetchMessages({ limit: 100 }).then(messages => channel.bulkDelete(messages.size));
       return clearTimeout(timeout);
     };
     db.delete(`${member.user.id}_code`);
     logs.send(`[VERIFY] El usuario **${member.user.tag}** ha fallado en su verificación.\nRazón: Inactividad. Enviado al canal de <#700846129448878130>.`);
     member.setRoles(["700458683414347866"], "El usuario ha tardado en verificarse. Enviado al canal de #ataúd.");
-    channel.fetchMessages({ limit: 50 }).then(messages => channel.bulkDelete(messages));
+    channel.fetchMessages({ limit: 50 }).then(messages => channel.bulkDelete(messages.size));
     return;
   }, 900000);
   
@@ -256,7 +229,7 @@ client.on('messageReactionRemove', async (reaction, user) => {
 
 client.on("message", (message) => {
   if (message.author.bot) return;
-  if (!message.content.startsWith(".tg")) return;
+  if (!message.content.startsWith(process.env.PREFIX)) return;
   if (message.channel.type === "dm") return;
   
   let messageArray = message.content.split(" ");
