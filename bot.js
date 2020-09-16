@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require("express");
 const app = express();
-const { Discord, Collection, RichEmbed, Client, MessageCollector, Attachment } = require("discord.js")
+const { Discord, Collection, RichEmbed, Client, MessageCollector, Attachment } = require("discord.js");
 const keepalive = require('express-glitch-keepalive');
 const fs = require("fs");
 const db = require("quick.db");
@@ -69,7 +69,7 @@ client.on("ready", () => {
 
 function makecode(length) {
    var result           = '';
-   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789._-';
+   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
    var charactersLength = characters.length;
    for ( var i = 0; i < length; i++ ) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
@@ -81,7 +81,7 @@ client.on("guildMemberAdd", async (member, guild) => {
   let channel = client.channels.get("715699593270001755");
   let role = member.guild.roles.get("555126986025205761");
   let logs = client.channels.get("715363138308014141");
-  var amount = makecode(16);
+  var amount = `${makecode(4)}-${makecode(4)}-${makecode(4)}`;
   let code = db.set(`${member.user.id}_code`, amount);
   var image = text2png(code, {
     font: '80px Lato',
